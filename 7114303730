@@ -398,6 +398,23 @@ tab:Toggle({
 	Description = "Will use ability (For Auto Farm)",
 	Callback = function(state)
 		MasteryFarm = state
+
+		if MasteryFarm == false then
+			VirtualInputManager:SendKeyEvent(false, "C", false, game)
+		end
+
+		if StartFarming == false and SkillOnly == false then
+			gui:set_status("Status: IDLE")
+		else
+			gui:set_status(
+				"Auto Farm: "
+					.. tostring(StartFarming)
+					.. " | Mastery Farm: "
+					.. tostring(MasteryFarm)
+					.. " | Skill Only: "
+					.. tostring(SkillOnly)
+			)
+		end
 	end,
 })
 
