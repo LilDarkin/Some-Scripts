@@ -60,7 +60,7 @@ plrChar = plr.Character
 --Functions
 local ListOfMobs = {}
 local ListOfWeapons = {}
-local Spawns = {}
+local Spawns = { "DragonBalls" }
 local add = false
 
 local PlaceID = game.PlaceId
@@ -422,8 +422,15 @@ misc:dropdown({
 	Items = Spawns,
 	Description = "List of Available Maps",
 	Callback = function(v)
-		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame =
-			game:GetService("Workspace").Resources.NPC.SetSpawn[v].CFrame
+
+		if v == "DragonBalls" then
+			game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame =
+				game:GetService("Workspace").Resources.NPC.DragonBalls.CFrame
+		else
+			game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame =
+				game:GetService("Workspace").Resources.NPC.SetSpawn[v].CFrame
+		end
+		
 	end,
 })
 
