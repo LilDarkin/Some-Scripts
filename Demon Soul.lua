@@ -1,0 +1,181 @@
+--Anti AFK
+local vu = game:GetService("VirtualUser")
+game:GetService("Players").LocalPlayer.Idled:connect(function()
+	vu:Button2Down(Vector2.new(0, 0), workspace.CurrentCamera.CFrame)
+	wait(1)
+	vu:Button2Up(Vector2.new(0, 0), workspace.CurrentCamera.CFrame)
+end)
+
+--GUI
+local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/deeeity/mercury-lib/master/src.lua"))()
+
+local gui = Library:Create({
+	Name = "Demon Soul",
+	Size = UDim2.fromOffset(600, 400),
+	Theme = Library.Themes.Dark,
+	Link = "https://github.com/deeeity/mercury-lib",
+	ToggleKey = Enum.KeyCode.RightAlt,
+})
+
+local tab = gui:tab({
+	Name = "Main",
+	Icon = "http://www.roblox.com/asset/?id=3517705287",
+})
+
+--Variables
+getgenv().StartFarming = false
+getgenv().ChooseLevel = "1"
+getgenv().AutoSoul = false
+getgenv().AutoDraw = false
+getgenv().AutoHit = false
+
+wait = task.wait
+plr = game.Players.LocalPlayer
+plrName = plr.Name
+plrChar = plr.Character
+
+--Functions
+local function attack()
+	game:GetService("ReplicatedStorage").RemoteEvents.GeneralAttack:FireServer()
+end
+
+local function skill()
+	if plr.SkillCd1.Value == 0 then
+		game:GetService("ReplicatedStorage").RemoteEvents.SkillAttack:FireServer(1)
+	end
+
+	if plr.SkillCd2.Value == 0 and plr.PlayerGui.MainUi.BattleUi["Attack_Pc"].Skill2Button.Lock.Visible == false then
+		game:GetService("ReplicatedStorage").RemoteEvents.SkillAttack:FireServer(2)
+	end
+
+	if plr.SkillCd3.Value == 0 and plr.PlayerGui.MainUi.BattleUi["Attack_Pc"].Skill3Button.Lock.Visible == false then
+		game:GetService("ReplicatedStorage").RemoteEvents.SkillAttack:FireServer(3)
+	end
+end
+
+local function collectSoul()
+	for _, v in pairs(game:GetService("Workspace").Souls:GetChildren()) do
+		if v:IsA("Part") and v.Name == "Soul" then
+			v.CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
+			wait()
+		end
+	end
+end
+
+--Main
+tab:dropdown({
+	Name = "Target Mob",
+	StartingText = "...",
+	Items = {
+		{ "Level 1", 1 },
+		{ "Level 2", 2 },
+		{ "Level 3", 3 },
+		{ "Level 4", 4 },
+	},
+	Description = "List of Available Mobs",
+	Callback = function(v)
+		ChooseLevel = v
+	end,
+})
+
+tab:Toggle({
+	Name = "Auto Farm",
+	StartingState = false,
+	Description = "Self-explanatory",
+	Callback = function(state)
+		StartFarming = state
+	end,
+})
+
+tab:Toggle({
+	Name = "Collect Souls",
+	StartingState = false,
+	Description = "Self-explanatory",
+	Callback = function(state)
+		AutoSoul = state
+	end,
+})
+
+tab:Toggle({
+	Name = "Auto Draw",
+	StartingState = false,
+	Description = "Self-explanatory",
+	Callback = function(state)
+		AutoDraw = state
+	end,
+})
+
+tab:Toggle({
+	Name = "Auto Hit and Skills",
+	StartingState = false,
+	Description = "For World Boss",
+	Callback = function(state)
+		AutoHit = state
+	end,
+})
+
+spawn(function()
+	while wait() do
+		if AutoSoul then
+			collectSoul()
+		end
+
+		if AutoDraw and game.Players.LocalPlayer.LastDrawRoleCd.Value <= 0 then
+			game:GetService("ReplicatedStorage").RemoteEvents.DrawRole:FireServer(false)
+		end
+
+		if AutoHit then
+			skill()
+			attack()
+		end
+
+		if StartFarming then
+			for i, v in pairs(game:GetService("Workspace").GhostPos["Leve" .. ChooseLevel]:GetChildren()) do
+				if v:isA("Part") and v:FindFirstChildWhichIsA("Model") then
+					for _, z in pairs(v:GetChildren()) do
+						if
+							z:IsA("Model")
+							and z:FindFirstChild("HumanoidRootPart")
+							and z:FindFirstChild("Humanoid")
+							and z.Humanoid.Health > 0
+						then
+							repeat
+								wait()
+								if plr.PlayerGui.MainUi.AttackIcon.Enabled == true then
+									if AutoDraw and game.Players.LocalPlayer.LastDrawRoleCd.Value <= 0 then
+										game:GetService("ReplicatedStorage").RemoteEvents.DrawRole:FireServer(false)
+									end
+
+									if game:GetService("Workspace").Souls:FindFirstChild("Soul") then
+										collectSoul()
+									end
+
+									plrChar:SetPrimaryPartCFrame(
+										z.HumanoidRootPart.CFrame - z.HumanoidRootPart.CFrame.lookVector * 3
+									)
+
+									skill()
+									attack()
+
+								else
+									plrChar:SetPrimaryPartCFrame(
+										z.HumanoidRootPart.CFrame - z.HumanoidRootPart.CFrame.lookVector * 3
+									)
+									wait(0.5)
+									plrChar:SetPrimaryPartCFrame(
+										z.HumanoidRootPart.CFrame - z.HumanoidRootPart.CFrame.lookVector * 15
+									)
+								end
+							until z.Humanoid.Health == 0 or StartFarming == false
+
+							collectSoul()
+						end
+					end
+				end
+				if StartFarming == false then
+					break
+				end
+			end
+		end
+	end
+end)
