@@ -204,6 +204,7 @@ local function skill(tool)
 						:GetService("ReplicatedStorage").Packages.Knit.Services.AbilityService.RF.Ability
 						:InvokeServer(unpack(args))
 				end
+				break
 			end
 		end
 	end
