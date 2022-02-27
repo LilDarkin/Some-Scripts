@@ -335,6 +335,19 @@ tab:Toggle({
 		else
 			StopItNow = false
 		end
+
+		if StartFarming == false and SkillOnly == false then
+			gui:set_status("Status: IDLE")
+		else
+			gui:set_status(
+				"Auto Farm: "
+					.. tostring(StartFarming)
+					.. " | Mastery Farm: "
+					.. tostring(MasteryFarm)
+					.. " | Skill Only: "
+					.. tostring(SkillOnly)
+			)
+		end
 	end,
 })
 
@@ -354,6 +367,19 @@ local SkillTab = tab:Toggle({
 			VirtualInputManager:SendKeyEvent(false, "C", false, game)
 		else
 			StopItNow = false
+		end
+
+		if StartFarming == false and SkillOnly == false then
+			gui:set_status("Status: IDLE")
+		else
+			gui:set_status(
+				"Auto Farm: "
+					.. tostring(StartFarming)
+					.. " | Mastery Farm: "
+					.. tostring(MasteryFarm)
+					.. " | Skill Only: "
+					.. tostring(SkillOnly)
+			)
 		end
 	end,
 })
@@ -422,7 +448,6 @@ misc:dropdown({
 	Items = Spawns,
 	Description = "List of Available Maps",
 	Callback = function(v)
-
 		if v == "DragonBalls" then
 			game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame =
 				game:GetService("Workspace").Resources.NPC.DragonBalls.CFrame
@@ -430,7 +455,6 @@ misc:dropdown({
 			game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame =
 				game:GetService("Workspace").Resources.NPC.SetSpawn[v].CFrame
 		end
-		
 	end,
 })
 
