@@ -1,11 +1,10 @@
 repeat
 	wait()
 until game:IsLoaded()
-wait(3)
 
-syn.queue_on_teleport([[
-    loadstring(game:HttpGet("https://raw.githubusercontent.com/LilDarkin/Some-Scripts/master/" .. game.PlaceId))()
-]])
+local webhookcheck = syn and "Synapse"
+
+wait(3)
 
 wait = task.wait
 
@@ -63,6 +62,15 @@ local ListOfWeapons = {}
 local Spawns = { "DragonBalls" }
 local add = false
 
+if webhookcheck == "Synapse" then
+	syn.queue_on_teleport([[
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/LilDarkin/Some-Scripts/master/" .. game.PlaceId))()
+]])
+else
+	Notify("Warning!", "Not Synapse", 10)
+end
+
+--TP
 local PlaceID = game.PlaceId
 local AllIDs = {}
 local foundAnything = ""
