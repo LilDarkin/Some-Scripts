@@ -12,3 +12,5 @@ Credits to people who giving open source scripts thats really helpful making thi
 2281639237 - **Stands Online**
 
 7114303730 - **Dragon Orbz**
+
+7107498084 - **Anime Battle Tycoon**
