@@ -768,8 +768,4 @@ spawn(function()
         end
 
     end
-<<<<<<< HEAD
 end)
-=======
-end)
->>>>>>> af429540aa16030ee73a214ebb24c0414a489acc
