@@ -306,7 +306,7 @@ tab:Button({
 	Name = "REFRESH",
 	Description = "Refresh all dropdowns",
 	Callback = function()
-		plrChar.Humanoid:UnequipTools()
+		game.Players.LocalPlayer.Character.Humanoid:UnequipTools()
 		Notify("Please Wait!", "Refreshing...", 3)
 		MobDropdown:Clear()
 		WeaponDropdown:Clear()
