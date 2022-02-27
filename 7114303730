@@ -62,16 +62,6 @@ local ListOfWeapons = {}
 local Spawns = { "DragonBalls" }
 local add = false
 
-if webhookcheck == "Synapse" then
-	Notify("Info!", "Using Synapse", 10)
-
-	syn.queue_on_teleport([[
-    loadstring(game:HttpGet("https://raw.githubusercontent.com/LilDarkin/Some-Scripts/master/" .. game.PlaceId))()
-]])
-else
-	Notify("Info!", "Not Synapse", 10)
-end
-
 --TP
 local PlaceID = game.PlaceId
 local AllIDs = {}
@@ -282,6 +272,16 @@ end
 getMaps()
 getWeapons()
 getMobs()
+
+if webhookcheck == "Synapse" then
+	Notify("Info!", "Using Synapse", 10)
+
+	syn.queue_on_teleport([[
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/LilDarkin/Some-Scripts/master/" .. game.PlaceId))()
+]])
+else
+	Notify("Info!", "Not Synapse", 10)
+end
 
 --Main
 local WeaponDropdown = tab:dropdown({
