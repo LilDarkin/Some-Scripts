@@ -43,7 +43,7 @@ getgenv().SkillOnly = false
 getgenv().TargetMob = ""
 getgenv().MasteryFarm = false
 getgenv().PercentHP = 0.2
-getgenv().DistanceHM = 7
+getgenv().DistanceHM = 8
 getgenv().getOrb = false
 getgenv().ChooseWeapon = ""
 getgenv().hpLeft = 0
@@ -54,7 +54,6 @@ local VirtualInputManager = game:GetService("VirtualInputManager")
 
 plr = game.Players.LocalPlayer
 plrName = plr.Name
-plrChar = plr.Character
 
 --Functions
 local ListOfMobs = {}
@@ -204,7 +203,6 @@ local function skill(tool)
 						:GetService("ReplicatedStorage").Packages.Knit.Services.AbilityService.RF.Ability
 						:InvokeServer(unpack(args))
 				end
-				break
 			end
 		end
 	end
@@ -440,8 +438,8 @@ tab:Slider({
 })
 
 tab:Slider({
-	Name = "Distance behind the mob",
-	Default = 5,
+	Name = "Distance between the mob",
+	Default = 8,
 	Min = 1,
 	Max = 10,
 	Callback = function(distance)
@@ -573,7 +571,7 @@ spawn(function()
 							end
 
 							if plr.PlayerGui.Ability.Background:FindFirstChild("BackpackTitle") == nil then --Its for bug purposes
-								plrChar.Humanoid:UnequipTools()
+								game.Players.LocalPlayer.Character.Humanoid:UnequipTools()
 							end
 
 							if getOrb then --Will get the spawned ORB/Dragon Balls
@@ -607,20 +605,15 @@ spawn(function()
 												* CFrame.new(0, HighDistance, 0)
 											skill(ChooseWeapon)
 										else
-											game.Players.LocalPlayer.Character:SetPrimaryPartCFrame(
-												v.HumanoidRootPart.CFrame
-													- v.HumanoidRootPart.CFrame.lookVector * DistanceHM
-											)
+											game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.HumanoidRootPart.CFrame * CFrame.new(0, DistanceHM, 0)
 
 											game
 												:GetService("ReplicatedStorage").Packages.Knit.Services.CombatService.RF.MeleeAttack
 												:InvokeServer("Punch")
 										end
 									elseif MasteryFarm == false then
-										game.Players.LocalPlayer.Character:SetPrimaryPartCFrame(
-											v.HumanoidRootPart.CFrame
-												- v.HumanoidRootPart.CFrame.lookVector * DistanceHM
-										)
+										game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.HumanoidRootPart.CFrame * CFrame.new(0, DistanceHM, 0)
+
 										game
 											:GetService("ReplicatedStorage").Packages.Knit.Services.CombatService.RF.MeleeAttack
 											:InvokeServer("Punch")
@@ -689,7 +682,7 @@ spawn(function()
 							end
 
 							if plr.PlayerGui.Ability.Background:FindFirstChild("BackpackTitle") == nil then --Its for bug purposes
-								plrChar.Humanoid:UnequipTools()
+								game.Players.LocalPlayer.Character.Humanoid:UnequipTools()
 							end
 
 							if getOrb then --Will get the spawned ORB/Dragon Balls
