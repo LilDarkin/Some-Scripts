@@ -1,10 +1,21 @@
+rawr = false
+
 repeat
 	wait()
 until game:IsLoaded()
 
-local webhookcheck = syn and "Synapse"
+repeat
+	wait()
+	if game:GetService("Players").LocalPlayer.PlayerGui:FindFirstChild("Intro") then
+		if game:GetService("Players").LocalPlayer.PlayerGui.Intro:FindFirstChild("Play") then
+			if game:GetService("Players").LocalPlayer.PlayerGui.Intro.Play.Visible == true then
+				rawr = true
+			end
+		end
+	end
+until rawr == true
 
-wait(3)
+local webhookcheck = syn and "Synapse"
 
 wait = task.wait
 
@@ -156,13 +167,13 @@ local function getTheOrb()
 			game.Players.LocalPlayer.Character:SetPrimaryPartCFrame(v.Handle.CFrame)
 			wait(0.1)
 			game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame =
-				game:GetService("Workspace").Resources.NPC.SetSpawn["North City"].CFrame
+				game:GetService("Workspace").Resources.NPC.SetSpawn["North City"].CFrame * CFrame.new(0, 30, 0)
 		elseif v:IsA("Model") and v:FindFirstChild("Part") then
 			Notify("Got something!", "You got " .. v.Name, 10)
 			game.Players.LocalPlayer.Character:SetPrimaryPartCFrame(v.Part.CFrame)
 			wait(0.1)
 			game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame =
-				game:GetService("Workspace").Resources.NPC.SetSpawn["North City"].CFrame
+				game:GetService("Workspace").Resources.NPC.SetSpawn["North City"].CFrame * CFrame.new(0, 30, 0)
 		end
 	end
 	for i, v in pairs(game:GetService("Workspace"):GetChildren()) do
@@ -171,7 +182,7 @@ local function getTheOrb()
 			game.Players.LocalPlayer.Character:SetPrimaryPartCFrame(v.Handle.CFrame)
 			wait(0.1)
 			game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame =
-				game:GetService("Workspace").Resources.NPC.SetSpawn["North City"].CFrame
+				game:GetService("Workspace").Resources.NPC.SetSpawn["North City"].CFrame * CFrame.new(0, 30, 0)
 		end
 	end
 end
@@ -502,7 +513,7 @@ misc:Button({
 
 misc:Button({
 	Name = "REJOIN SERVER",
-	Description = "Self-explanatory",
+	Description = "Self-explanatory | also Auto-exec (Synapse only)",
 	Callback = function()
 		local ts = game:GetService("TeleportService")
 
@@ -514,7 +525,7 @@ misc:Button({
 
 misc:Button({
 	Name = "Server-Hop",
-	Description = "Self-explanatory",
+	Description = "Self-explanatory | also Auto-exec (Synapse only)",
 	Callback = function()
 		Teleport()
 	end,
