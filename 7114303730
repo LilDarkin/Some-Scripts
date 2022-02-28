@@ -274,7 +274,7 @@ getTheOrb()
 if webhookcheck == "Synapse" then
 	syn.queue_on_teleport([[
 		rawr = false
-
+repeat wait() until game:IsLoaded()
 repeat
 	wait()
 	if game:GetService("Players").LocalPlayer.PlayerGui:FindFirstChild("Intro") then
