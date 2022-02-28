@@ -2,6 +2,10 @@ repeat
 	wait()
 until game:IsLoaded()
 
+repeat
+	wait()
+until game.Players.LocalPlayer.Character
+
 local webhookcheck = syn and "Synapse"
 
 wait = task.wait
@@ -277,6 +281,7 @@ if webhookcheck == "Synapse" then
 repeat wait() until game:IsLoaded()
 repeat
 	wait()
+	if game:GetService("Players").LocalPlayer:FindFirstChild('PlayerGui') then
 	if game:GetService("Players").LocalPlayer.PlayerGui:FindFirstChild("Intro") then
 		if game:GetService("Players").LocalPlayer.PlayerGui.Intro:FindFirstChild("Play") then
 			if game:GetService("Players").LocalPlayer.PlayerGui.Intro.Play.Visible == true then
@@ -284,7 +289,10 @@ repeat
 			end
 		end
 	end
+end
 until rawr == true
+
+wait(3)
     loadstring(game:HttpGet("https://raw.githubusercontent.com/LilDarkin/Some-Scripts/master/" .. game.PlaceId))()
 ]])
 
