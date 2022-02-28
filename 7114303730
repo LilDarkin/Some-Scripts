@@ -1,19 +1,6 @@
-rawr = false
-
 repeat
 	wait()
 until game:IsLoaded()
-
-repeat
-	wait()
-	if game:GetService("Players").LocalPlayer.PlayerGui:FindFirstChild("Intro") then
-		if game:GetService("Players").LocalPlayer.PlayerGui.Intro:FindFirstChild("Play") then
-			if game:GetService("Players").LocalPlayer.PlayerGui.Intro.Play.Visible == true then
-				rawr = true
-			end
-		end
-	end
-until rawr == true
 
 local webhookcheck = syn and "Synapse"
 
@@ -166,14 +153,14 @@ local function getTheOrb()
 			Notify("Got something!", "You got " .. v.Name, 10)
 			game.Players.LocalPlayer.Character:SetPrimaryPartCFrame(v.Handle.CFrame)
 			wait(0.1)
-			game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame =
-				game:GetService("Workspace").Resources.NPC.SetSpawn["North City"].CFrame * CFrame.new(0, 30, 0)
+			game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game:GetService("Workspace").Resources.NPC.SetSpawn["North City"].CFrame
+				* CFrame.new(0, 30, 0)
 		elseif v:IsA("Model") and v:FindFirstChild("Part") then
 			Notify("Got something!", "You got " .. v.Name, 10)
 			game.Players.LocalPlayer.Character:SetPrimaryPartCFrame(v.Part.CFrame)
 			wait(0.1)
-			game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame =
-				game:GetService("Workspace").Resources.NPC.SetSpawn["North City"].CFrame * CFrame.new(0, 30, 0)
+			game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game:GetService("Workspace").Resources.NPC.SetSpawn["North City"].CFrame
+				* CFrame.new(0, 30, 0)
 		end
 	end
 	for i, v in pairs(game:GetService("Workspace"):GetChildren()) do
@@ -181,8 +168,8 @@ local function getTheOrb()
 			Notify("Got something!", "You got " .. v.Name, 10)
 			game.Players.LocalPlayer.Character:SetPrimaryPartCFrame(v.Handle.CFrame)
 			wait(0.1)
-			game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame =
-				game:GetService("Workspace").Resources.NPC.SetSpawn["North City"].CFrame * CFrame.new(0, 30, 0)
+			game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game:GetService("Workspace").Resources.NPC.SetSpawn["North City"].CFrame
+				* CFrame.new(0, 30, 0)
 		end
 	end
 end
@@ -286,8 +273,21 @@ getTheOrb()
 
 if webhookcheck == "Synapse" then
 	syn.queue_on_teleport([[
+		rawr = false
+
+repeat
+	wait()
+	if game:GetService("Players").LocalPlayer.PlayerGui:FindFirstChild("Intro") then
+		if game:GetService("Players").LocalPlayer.PlayerGui.Intro:FindFirstChild("Play") then
+			if game:GetService("Players").LocalPlayer.PlayerGui.Intro.Play.Visible == true then
+				rawr = true
+			end
+		end
+	end
+until rawr == true
     loadstring(game:HttpGet("https://raw.githubusercontent.com/LilDarkin/Some-Scripts/master/" .. game.PlaceId))()
 ]])
+
 end
 
 Notify("Welcome!", "Thank you for using my script", 10)
