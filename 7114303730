@@ -271,6 +271,7 @@ end
 getMaps()
 getWeapons()
 getMobs()
+getTheOrb()
 
 if webhookcheck == "Synapse" then
 	syn.queue_on_teleport([[
@@ -605,14 +606,16 @@ spawn(function()
 												* CFrame.new(0, HighDistance, 0)
 											skill(ChooseWeapon)
 										else
-											game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.HumanoidRootPart.CFrame * CFrame.new(0, DistanceHM, 0)
+											game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.HumanoidRootPart.CFrame
+												* CFrame.new(0, DistanceHM, 0)
 
 											game
 												:GetService("ReplicatedStorage").Packages.Knit.Services.CombatService.RF.MeleeAttack
 												:InvokeServer("Punch")
 										end
 									elseif MasteryFarm == false then
-										game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.HumanoidRootPart.CFrame * CFrame.new(0, DistanceHM, 0)
+										game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.HumanoidRootPart.CFrame
+											* CFrame.new(0, DistanceHM, 0)
 
 										game
 											:GetService("ReplicatedStorage").Packages.Knit.Services.CombatService.RF.MeleeAttack
