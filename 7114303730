@@ -295,7 +295,6 @@ until rawr == true
 wait(3)
     loadstring(game:HttpGet("https://raw.githubusercontent.com/LilDarkin/Some-Scripts/master/" .. game.PlaceId))()
 ]])
-
 end
 
 Notify("Welcome!", "Thank you for using my script", 10)
@@ -318,6 +317,8 @@ local MobDropdown = tab:dropdown({
 	Description = "List of Available Mobs",
 	Callback = function(v)
 		TargetMob = v
+
+		game:GetService("ReplicatedStorage").Packages.Knit.Services.QuestService.RF.CancelQuest:InvokeServer()
 	end,
 })
 
