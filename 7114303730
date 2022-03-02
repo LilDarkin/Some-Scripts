@@ -612,7 +612,6 @@ spawn(function()
 											game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.HumanoidRootPart.CFrame
 												* CFrame.new(0, HighDistance, 0)
 											skill(ChooseWeapon)
-											wait(1)
 										else
 											game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.HumanoidRootPart.CFrame
 												* CFrame.new(0, DistanceHM, 0)
@@ -724,7 +723,6 @@ spawn(function()
 									game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.HumanoidRootPart.CFrame
 										* CFrame.new(0, HighDistance, 0)
 									skill(ChooseWeapon)
-									wait(1)
 								end
 							end
 						end
