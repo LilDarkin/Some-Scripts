@@ -184,15 +184,14 @@ end
 --Auto Skill
 local function skill(tool, mob)
 	if plr.PlayerGui.Ability.Background:FindFirstChild("BackpackTitle") then
-		for i, v in pairs(plr.PlayerGui.Ability.Background:GetChildren()) do
-			if v:IsA("Frame") and v:FindFirstChild("Locked") and v.Name ~= "Meditation" then
-				if v.Locked.Visible == false then
-					repeat
-						wait()
-						if game:GetService("Workspace").Resources.SpawnedAI:FindFirstChild(v) == nil then
-							break
-						end
-
+		repeat
+			wait()
+			if game:GetService("Workspace").Resources.SpawnedAI:FindFirstChild(v) == nil then
+				break
+			end
+			for i, v in pairs(plr.PlayerGui.Ability.Background:GetChildren()) do
+				if v:IsA("Frame") and v:FindFirstChild("Locked") and v.Name ~= "Meditation" then
+					if v.Locked.Visible == false then
 						if StartFarming == false and SkillOnly == false then
 							break
 						end
@@ -200,10 +199,10 @@ local function skill(tool, mob)
 						VirtualInputManager:SendKeyEvent(true, tostring(v.Keybind.TextLabel.Text), false, game)
 						wait()
 						VirtualInputManager:SendKeyEvent(false, tostring(v.Keybind.TextLabel.Text), false, game)
-					until mob.Humanoid.Health == 0
+					end
 				end
 			end
-		end
+		until mob.Humanoid.Health == 0
 	end
 end
 
