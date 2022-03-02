@@ -187,10 +187,9 @@ local function skill(tool)
 		for i, v in pairs(plr.PlayerGui.Ability.Background:GetChildren()) do
 			if v:IsA("Frame") and v:FindFirstChild("Locked") and v.Name ~= "Meditation" then
 				if v.Locked.Visible == false then
-					Skillbind = v.Keybind.TextLabel.Text
-					VirtualInputManager:SendKeyEvent(true, Skillbind, false, game)
+					VirtualInputManager:SendKeyEvent(true, tostring(v.Keybind.TextLabel.Text), false, game)
 					wait()
-					VirtualInputManager:SendKeyEvent(false, Skillbind, false, game)
+					VirtualInputManager:SendKeyEvent(false, tostring(v.Keybind.TextLabel.Text), false, game)
 				end
 			end
 		end
