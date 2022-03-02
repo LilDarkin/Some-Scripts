@@ -142,6 +142,7 @@ function Teleport()
 	end
 end
 
+--Notify Notification
 function Notify(TitleMsg, Message, Timer)
 	gui:Notification({
 		Title = TitleMsg,
@@ -151,6 +152,7 @@ function Notify(TitleMsg, Message, Timer)
 	})
 end
 
+-- Get Orb/Dragon Balls
 local function getTheOrb()
 	for i, v in pairs(game:GetService("Workspace").Resources.SpawnedOrbs:GetChildren()) do
 		if v:IsA("Tool") and v:FindFirstChild("Handle") then
@@ -178,38 +180,23 @@ local function getTheOrb()
 	end
 end
 
+--Auto Skill
 local function skill(tool)
 	if plr.PlayerGui.Ability.Background:FindFirstChild("BackpackTitle") then
 		for i, v in pairs(plr.PlayerGui.Ability.Background:GetChildren()) do
 			if v:IsA("Frame") and v:FindFirstChild("Locked") and v.Name ~= "Meditation" then
 				if v.Locked.Visible == false then
-					function getNil(name, class)
-						for _, v in pairs(getnilinstances()) do
-							if v.ClassName == class and v.Name == name then
-								return v
-							end
-						end
-					end
-
-					args = {
-						[1] = v.Name,
-						[2] = tool,
-						[3] = {
-							["mouseHit"] = CFrame.new(Vector3.new(0, 0, 0)),
-							["Camera"] = workspace.Camera,
-							["Mouse"] = getNil("Instance", "PlayerMouse"),
-						},
-					}
-
-					game
-						:GetService("ReplicatedStorage").Packages.Knit.Services.AbilityService.RF.Ability
-						:InvokeServer(unpack(args))
+					Skillbind = v.Keybind.TextLabel.Text
+					VirtualInputManager:SendKeyEvent(true, Skillbind, false, game)
+					wait()
+					VirtualInputManager:SendKeyEvent(false, Skillbind, false, game)
 				end
 			end
 		end
 	end
 end
 
+--Get Available Maps
 local function getMaps()
 	for i, v in pairs(game:GetService("Workspace").Resources.NPC.SetSpawn:GetChildren()) do
 		if v:IsA("Part") then
