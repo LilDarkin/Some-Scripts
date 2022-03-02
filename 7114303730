@@ -189,9 +189,8 @@ local function skill(tool)
 				if v.Locked.Visible == false then
 					Skillbind = v.Keybind.TextLabel.Text
 					VirtualInputManager:SendKeyEvent(true, Skillbind, false, game)
-					wait(1)
+					wait()
 					VirtualInputManager:SendKeyEvent(false, Skillbind, false, game)
-					wait(.5)
 				end
 			end
 		end
@@ -614,6 +613,7 @@ spawn(function()
 											game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.HumanoidRootPart.CFrame
 												* CFrame.new(0, HighDistance, 0)
 											skill(ChooseWeapon)
+											wait(1)
 										else
 											game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.HumanoidRootPart.CFrame
 												* CFrame.new(0, DistanceHM, 0)
@@ -725,6 +725,7 @@ spawn(function()
 									game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.HumanoidRootPart.CFrame
 										* CFrame.new(0, HighDistance, 0)
 									skill(ChooseWeapon)
+									wait(1)
 								end
 							end
 						end
