@@ -182,14 +182,25 @@ local function getTheOrb()
 end
 
 --Auto Skill
-local function skill(tool)
+local function skill(tool, mob)
 	if plr.PlayerGui.Ability.Background:FindFirstChild("BackpackTitle") then
 		for i, v in pairs(plr.PlayerGui.Ability.Background:GetChildren()) do
 			if v:IsA("Frame") and v:FindFirstChild("Locked") and v.Name ~= "Meditation" then
 				if v.Locked.Visible == false then
-					VirtualInputManager:SendKeyEvent(true, tostring(v.Keybind.TextLabel.Text), false, game)
-					wait()
-					VirtualInputManager:SendKeyEvent(false, tostring(v.Keybind.TextLabel.Text), false, game)
+					repeat
+						wait()
+						if game:GetService("Workspace").Resources.SpawnedAI:FindFirstChild(v) == nil then
+							break
+						end
+
+						if StartFarming == false and SkillOnly == false then
+							break
+						end
+
+						VirtualInputManager:SendKeyEvent(true, tostring(v.Keybind.TextLabel.Text), false, game)
+						wait()
+						VirtualInputManager:SendKeyEvent(false, tostring(v.Keybind.TextLabel.Text), false, game)
+					until mob.Humanoid.Health == 0
 				end
 			end
 		end
@@ -611,7 +622,7 @@ spawn(function()
 										if v.Humanoid.Health <= hpLeft then
 											game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.HumanoidRootPart.CFrame
 												* CFrame.new(0, HighDistance, 0)
-											skill(ChooseWeapon)
+											skill(ChooseWeapon, v)
 										else
 											game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.HumanoidRootPart.CFrame
 												* CFrame.new(0, DistanceHM, 0)
