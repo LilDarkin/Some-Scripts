@@ -189,8 +189,9 @@ local function skill(tool)
 				if v.Locked.Visible == false then
 					Skillbind = v.Keybind.TextLabel.Text
 					VirtualInputManager:SendKeyEvent(true, Skillbind, false, game)
-					wait()
+					wait(1)
 					VirtualInputManager:SendKeyEvent(false, Skillbind, false, game)
+					wait(.5)
 				end
 			end
 		end
