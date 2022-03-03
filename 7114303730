@@ -148,19 +148,23 @@ local function autoSkill()
 	VirtualInputManager:SendKeyEvent(true, "X", false, game)
 	wait()
 	VirtualInputManager:SendKeyEvent(false, "X", false, game)
-	wait()
+
+	wait(1)
 	VirtualInputManager:SendKeyEvent(true, "Z", false, game)
 	wait()
 	VirtualInputManager:SendKeyEvent(false, "Z", false, game)
-	wait()
+
+	wait(1)
 	VirtualInputManager:SendKeyEvent(true, "F", false, game)
 	wait()
 	VirtualInputManager:SendKeyEvent(false, "F", false, game)
-	wait()
+
+	wait(1)
 	VirtualInputManager:SendKeyEvent(true, "V", false, game)
 	wait()
 	VirtualInputManager:SendKeyEvent(false, "V", false, game)
-	wait()
+
+	wait(1)
 	VirtualInputManager:SendKeyEvent(true, "B", false, game)
 	wait()
 	VirtualInputManager:SendKeyEvent(false, "B", false, game)
@@ -743,7 +747,6 @@ spawn(function()
 									-- AUTO SKILL
 									autoSkill()
 
-									until v.Humanoid.Health == 0 or SkillOnly == false
 								end
 							end
 						end
