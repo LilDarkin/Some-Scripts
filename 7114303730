@@ -750,11 +750,6 @@ spawn(function()
 									-- AUTO SKILL
 									repeat
 										wait()
-
-										if v == nil then
-											break
-										end
-
 										for i, v in pairs(plr.PlayerGui.Ability.Background:GetChildren()) do
 											if
 												v:IsA("Frame")
