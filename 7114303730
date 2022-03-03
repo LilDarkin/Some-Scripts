@@ -181,34 +181,6 @@ local function getTheOrb()
 	end
 end
 
---Auto Skill
-local function skill(tool, mob)
-	if plr.PlayerGui.Ability.Background:FindFirstChild("BackpackTitle") then
-		repeat
-			wait()
-
-			if mob == nil then
-				break
-			end
-
-			for i, v in pairs(plr.PlayerGui.Ability.Background:GetChildren()) do
-				if v:IsA("Frame") and v:FindFirstChild("Locked") and v.Name ~= "Meditation" then
-					if v.Locked.Visible == false then
-						if StartFarming == false and SkillOnly == false then
-							break
-						end
-
-						VirtualInputManager:SendKeyEvent(true, tostring(v.Keybind.TextLabel.Text), false, game)
-						wait()
-						VirtualInputManager:SendKeyEvent(false, tostring(v.Keybind.TextLabel.Text), false, game)
-					end
-				end
-			end
-
-		until mob.Humanoid.Health == 0
-	end
-end
-
 --Get Available Maps
 local function getMaps()
 	for i, v in pairs(game:GetService("Workspace").Resources.NPC.SetSpawn:GetChildren()) do
@@ -541,7 +513,7 @@ misc:Button({
 	Description = "Self-explanatory | also Auto-exec (Synapse only)",
 	Callback = function()
 		AutoExec()
-		
+
 		Teleport()
 	end,
 })
@@ -620,7 +592,7 @@ spawn(function()
 								end
 							end
 
-							if plr.PlayerGui.Ability.Background:FindFirstChild("BackpackTitle") then
+							if plr.PlayerGui.Ability.Background:FindFirstChild("BackpackTitle") then -- AUTO FARM
 								if
 									game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
 									and v:FindFirstChild("Humanoid")
@@ -630,7 +602,40 @@ spawn(function()
 										if v.Humanoid.Health <= hpLeft then
 											game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.HumanoidRootPart.CFrame
 												* CFrame.new(0, HighDistance, 0)
-											skill(ChooseWeapon, v)
+
+											-- AUTO SKILL
+											repeat
+												wait()
+
+												if v == nil then
+													break
+												end
+
+												for i, v in pairs(plr.PlayerGui.Ability.Background:GetChildren()) do
+													if
+														v:IsA("Frame")
+														and v:FindFirstChild("Locked")
+														and v.Name ~= "Meditation"
+													then
+														if v.Locked.Visible == false then
+															VirtualInputManager:SendKeyEvent(
+																true,
+																tostring(v.Keybind.TextLabel.Text),
+																false,
+																game
+															)
+															wait()
+															VirtualInputManager:SendKeyEvent(
+																false,
+																tostring(v.Keybind.TextLabel.Text),
+																false,
+																game
+															)
+														end
+													end
+												end
+
+											until v.Humanoid.Health == 0 or StartFarming == false
 										else
 											game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.HumanoidRootPart.CFrame
 												* CFrame.new(0, DistanceHM, 0)
@@ -733,7 +738,7 @@ spawn(function()
 								end
 							end
 
-							if plr.PlayerGui.Ability.Background:FindFirstChild("BackpackTitle") then
+							if plr.PlayerGui.Ability.Background:FindFirstChild("BackpackTitle") then -- AUTO SKILL FARM
 								if
 									game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
 									and v:FindFirstChild("Humanoid")
@@ -741,7 +746,40 @@ spawn(function()
 								then
 									game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.HumanoidRootPart.CFrame
 										* CFrame.new(0, HighDistance, 0)
-									skill(ChooseWeapon)
+
+									-- AUTO SKILL
+									repeat
+										wait()
+
+										if v == nil then
+											break
+										end
+
+										for i, v in pairs(plr.PlayerGui.Ability.Background:GetChildren()) do
+											if
+												v:IsA("Frame")
+												and v:FindFirstChild("Locked")
+												and v.Name ~= "Meditation"
+											then
+												if v.Locked.Visible == false then
+													VirtualInputManager:SendKeyEvent(
+														true,
+														tostring(v.Keybind.TextLabel.Text),
+														false,
+														game
+													)
+													wait()
+													VirtualInputManager:SendKeyEvent(
+														false,
+														tostring(v.Keybind.TextLabel.Text),
+														false,
+														game
+													)
+												end
+											end
+										end
+
+									until v.Humanoid.Health == 0 or StartFarming == false
 								end
 							end
 						end
