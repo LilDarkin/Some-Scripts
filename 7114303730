@@ -143,6 +143,29 @@ function Teleport()
 	end
 end
 
+--Auto Skill
+local function autoSkill()
+	VirtualInputManager:SendKeyEvent(true, "X", false, game)
+	wait()
+	VirtualInputManager:SendKeyEvent(false, "X", false, game)
+	wait()
+	VirtualInputManager:SendKeyEvent(true, "Z", false, game)
+	wait()
+	VirtualInputManager:SendKeyEvent(false, "Z", false, game)
+	wait()
+	VirtualInputManager:SendKeyEvent(true, "F", false, game)
+	wait()
+	VirtualInputManager:SendKeyEvent(false, "F", false, game)
+	wait()
+	VirtualInputManager:SendKeyEvent(true, "V", false, game)
+	wait()
+	VirtualInputManager:SendKeyEvent(false, "V", false, game)
+	wait()
+	VirtualInputManager:SendKeyEvent(true, "B", false, game)
+	wait()
+	VirtualInputManager:SendKeyEvent(false, "B", false, game)
+end
+
 --Notify Notification
 function Notify(TitleMsg, Message, Timer)
 	gui:Notification({
@@ -604,33 +627,8 @@ spawn(function()
 												* CFrame.new(0, HighDistance, 0)
 
 											-- AUTO SKILL
-											repeat
-												wait()
-												for i, v in pairs(plr.PlayerGui.Ability.Background:GetChildren()) do
-													if
-														v:IsA("Frame")
-														and v:FindFirstChild("Locked")
-														and v.Name ~= "Meditation"
-													then
-														if v.Locked.Visible == false then
-															VirtualInputManager:SendKeyEvent(
-																true,
-																tostring(v.Keybind.TextLabel.Text),
-																false,
-																game
-															)
-															wait()
-															VirtualInputManager:SendKeyEvent(
-																false,
-																tostring(v.Keybind.TextLabel.Text),
-																false,
-																game
-															)
-														end
-													end
-												end
+											autoSkill()
 
-											until v.Humanoid.Health == 0 or StartFarming == false
 										else
 											game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.HumanoidRootPart.CFrame
 												* CFrame.new(0, DistanceHM, 0)
@@ -743,31 +741,7 @@ spawn(function()
 										* CFrame.new(0, HighDistance, 0)
 
 									-- AUTO SKILL
-									repeat
-										wait()
-										for i, v in pairs(plr.PlayerGui.Ability.Background:GetChildren()) do
-											if
-												v:IsA("Frame")
-												and v:FindFirstChild("Locked")
-												and v.Name ~= "Meditation"
-											then
-												if v.Locked.Visible == false then
-													VirtualInputManager:SendKeyEvent(
-														true,
-														tostring(v.Keybind.TextLabel.Text),
-														false,
-														game
-													)
-													wait()
-													VirtualInputManager:SendKeyEvent(
-														false,
-														tostring(v.Keybind.TextLabel.Text),
-														false,
-														game
-													)
-												end
-											end
-										end
+									autoSkill()
 
 									until v.Humanoid.Health == 0 or SkillOnly == false
 								end
