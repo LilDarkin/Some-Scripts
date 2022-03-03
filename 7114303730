@@ -186,9 +186,11 @@ local function skill(tool, mob)
 	if plr.PlayerGui.Ability.Background:FindFirstChild("BackpackTitle") then
 		repeat
 			wait()
-			if game:GetService("Workspace").Resources.SpawnedAI:FindFirstChild(v) == nil then
+
+			if mob == nil then
 				break
 			end
+
 			for i, v in pairs(plr.PlayerGui.Ability.Background:GetChildren()) do
 				if v:IsA("Frame") and v:FindFirstChild("Locked") and v.Name ~= "Meditation" then
 					if v.Locked.Visible == false then
@@ -202,6 +204,7 @@ local function skill(tool, mob)
 					end
 				end
 			end
+
 		until mob.Humanoid.Health == 0
 	end
 end
@@ -272,8 +275,9 @@ getWeapons()
 getMobs()
 getTheOrb()
 
-if webhookcheck == "Synapse" then
-	syn.queue_on_teleport([[
+local function AutoExec()
+	if webhookcheck == "Synapse" then
+		syn.queue_on_teleport([[
 		rawr = false
 repeat wait() until game:IsLoaded()
 repeat
@@ -292,6 +296,7 @@ until rawr == true
 wait(3)
     loadstring(game:HttpGet("https://raw.githubusercontent.com/LilDarkin/Some-Scripts/master/" .. game.PlaceId))()
 ]])
+	end
 end
 
 Notify("Welcome!", "Thank you for using my script", 10)
@@ -521,6 +526,8 @@ misc:Button({
 	Name = "REJOIN SERVER",
 	Description = "Self-explanatory | also Auto-exec (Synapse only)",
 	Callback = function()
+		AutoExec()
+
 		local ts = game:GetService("TeleportService")
 
 		local p = game:GetService("Players").LocalPlayer
@@ -533,6 +540,8 @@ misc:Button({
 	Name = "Server-Hop",
 	Description = "Self-explanatory | also Auto-exec (Synapse only)",
 	Callback = function()
+		AutoExec()
+		
 		Teleport()
 	end,
 })
