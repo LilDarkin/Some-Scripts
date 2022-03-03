@@ -606,11 +606,6 @@ spawn(function()
 											-- AUTO SKILL
 											repeat
 												wait()
-
-												if v == nil then
-													break
-												end
-
 												for i, v in pairs(plr.PlayerGui.Ability.Background:GetChildren()) do
 													if
 														v:IsA("Frame")
@@ -774,7 +769,7 @@ spawn(function()
 											end
 										end
 
-									until v.Humanoid.Health == 0 or StartFarming == false
+									until v.Humanoid.Health == 0 or SkillOnly == false
 								end
 							end
 						end
