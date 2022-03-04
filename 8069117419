@@ -8,7 +8,7 @@ end)
 
 --GUI
 local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/deeeity/mercury-lib/master/src.lua"))()
-
+local GameName = game:GetService("MarketplaceService"):GetProductInfo(game.PlaceId).Name
 local gui = Library:Create({
 	Name = "Demon Soul",
 	Size = UDim2.fromOffset(600, 400),
@@ -18,8 +18,8 @@ local gui = Library:Create({
 })
 
 local tab = gui:tab({
-	Name = "Main",
-	Icon = "http://www.roblox.com/asset/?id=3517705287",
+	Name = GameName, --Demon Soul
+	Icon = "rbxassetid://8677107889",
 })
 
 --Variables
@@ -120,8 +120,13 @@ spawn(function()
 			collectSoul()
 		end
 
-		if AutoDraw and game.Players.LocalPlayer.LastDrawRoleCd.Value <= 0 then
-			game:GetService("ReplicatedStorage").RemoteEvents.DrawRole:FireServer(false)
+		if AutoDraw and game.Players.LocalPlayer.LastDrawRoleCd.Value <= 1 then
+			game.Players.LocalPlayer.Character:SetPrimaryPartCFrame(
+				game:GetService("Workspace").Maps.LuckDraw.DrawRange.DrawRange.CFrame
+			)
+			if game.Players.LocalPlayer.PlayerGui.NotResetUi.DrawRoleFrame.IsInDrawRoleRange.Value == true then
+				game:GetService("ReplicatedStorage").RemoteEvents.DrawRole:FireServer(false)
+			end
 		end
 
 		if AutoHit then
@@ -141,31 +146,29 @@ spawn(function()
 						then
 							repeat
 								wait()
-								if plr.PlayerGui.MainUi.AttackIcon.Enabled == true then
-									if AutoDraw and game.Players.LocalPlayer.LastDrawRoleCd.Value <= 0 then
+
+								if AutoDraw and game.Players.LocalPlayer.LastDrawRoleCd.Value <= 1 then
+									game.Players.LocalPlayer.Character:SetPrimaryPartCFrame(
+										game:GetService("Workspace").Maps.LuckDraw.DrawRange.DrawRange.CFrame
+									)
+									if
+										game.Players.LocalPlayer.PlayerGui.NotResetUi.DrawRoleFrame.IsInDrawRoleRange.Value
+										== true
+									then
 										game:GetService("ReplicatedStorage").RemoteEvents.DrawRole:FireServer(false)
 									end
-
-									if game:GetService("Workspace").Souls:FindFirstChild("Soul") then
-										collectSoul()
-									end
-
-									plrChar:SetPrimaryPartCFrame(
-										z.HumanoidRootPart.CFrame - z.HumanoidRootPart.CFrame.lookVector * 3
-									)
-
-									skill()
-									attack()
-
-								else
-									plrChar:SetPrimaryPartCFrame(
-										z.HumanoidRootPart.CFrame - z.HumanoidRootPart.CFrame.lookVector * 3
-									)
-									wait(0.5)
-									plrChar:SetPrimaryPartCFrame(
-										z.HumanoidRootPart.CFrame - z.HumanoidRootPart.CFrame.lookVector * 15
-									)
 								end
+
+								if game:GetService("Workspace").Souls:FindFirstChild("Soul") then
+									collectSoul()
+								end
+
+								game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = z.HumanoidRootPart.CFrame
+									* CFrame.new(0, -10, 0)
+
+								skill()
+								attack()
+
 							until z.Humanoid.Health == 0 or StartFarming == false
 
 							collectSoul()
