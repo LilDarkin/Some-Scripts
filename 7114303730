@@ -328,35 +328,65 @@ getTheOrb()
 
 local function AutoExec()
 	if webhookcheck == "Synapse" then
-		syn.queue_on_teleport([[
-			if FindItPlease then
-				getgenv().FoundIt = false
-				getgenv().ItemToFind = ItemToFind
-				game.StarterGui:SetCore("SendNotification", {
-					Title = "Testing";
-					Text = "Found? " .. tostring(FoundIt) .. "\n Item to find: " .. ItemToFind; -- what the text says (ofc)
-					Icon = "rbxassetid://8677107889";
-					Duration = 5;
-					})
-			end
-		rawr = false
-repeat wait() until game:IsLoaded()
+		if FindItPlease then
+			syn.queue_on_teleport([[
+
+getgenv().FoundIt = false
+getgenv().ItemToFind = ItemToFind
+game.StarterGui:SetCore("SendNotification", {
+	Title = "Testing",
+	Text = "Found? " .. tostring(FoundIt) .. "\n Item to find: " .. ItemToFind, -- what the text says (ofc)
+	Icon = "rbxassetid://8677107889",
+	Duration = 5,
+})
+
+rawr = false
 repeat
 	wait()
-	if game:GetService("Players").LocalPlayer:FindFirstChild('PlayerGui') then
-	if game:GetService("Players").LocalPlayer.PlayerGui:FindFirstChild("Intro") then
-		if game:GetService("Players").LocalPlayer.PlayerGui.Intro:FindFirstChild("Play") then
-			if game:GetService("Players").LocalPlayer.PlayerGui.Intro.Play.Visible == true then
-				rawr = true
+until game:IsLoaded()
+repeat
+	wait()
+	if game:GetService("Players").LocalPlayer:FindFirstChild("PlayerGui") then
+		if game:GetService("Players").LocalPlayer.PlayerGui:FindFirstChild("Intro") then
+			if game:GetService("Players").LocalPlayer.PlayerGui.Intro:FindFirstChild("Play") then
+				if game:GetService("Players").LocalPlayer.PlayerGui.Intro.Play.Visible == true then
+					rawr = true
+				end
 			end
 		end
 	end
-end
 until rawr == true
 
 wait(3)
-	loadstring(game:HttpGet("https://raw.githubusercontent.com/LilDarkin/Some-Scripts/master/" .. game.PlaceId))()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/LilDarkin/Some-Scripts/master/" .. game.PlaceId))()
+
 ]])
+
+		else
+			syn.queue_on_teleport([[
+
+rawr = false
+repeat
+	wait()
+until game:IsLoaded()
+repeat
+	wait()
+	if game:GetService("Players").LocalPlayer:FindFirstChild("PlayerGui") then
+		if game:GetService("Players").LocalPlayer.PlayerGui:FindFirstChild("Intro") then
+			if game:GetService("Players").LocalPlayer.PlayerGui.Intro:FindFirstChild("Play") then
+				if game:GetService("Players").LocalPlayer.PlayerGui.Intro.Play.Visible == true then
+					rawr = true
+				end
+			end
+		end
+	end
+until rawr == true
+
+wait(3)
+loadstring(game:HttpGet("https://raw.githubusercontent.com/LilDarkin/Some-Scripts/master/" .. game.PlaceId))()
+		]])
+		
+		end
 	end
 end
 
