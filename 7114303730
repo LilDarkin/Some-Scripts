@@ -329,6 +329,16 @@ getTheOrb()
 local function AutoExec()
 	if webhookcheck == "Synapse" then
 		syn.queue_on_teleport([[
+			if FindItPlease then
+				getgenv().FoundIt = false
+				getgenv().ItemToFind = ItemToFind
+				game.StarterGui:SetCore("SendNotification", {
+					Title = "Testing";
+					Text = "Found? " .. tostring(FoundIt) .. "\n Item to find: " .. ItemToFind; -- what the text says (ofc)
+					Icon = "rbxassetid://8677107889";
+					Duration = 5;
+					})
+			end
 		rawr = false
 repeat wait() until game:IsLoaded()
 repeat
@@ -345,16 +355,6 @@ end
 until rawr == true
 
 wait(3)
-    if FindItPlease then
-		getgenv().FoundIt = false
-        getgenv().ItemToFind = ItemToFind
-		game.StarterGui:SetCore("SendNotification", {
-			Title = "Testing";
-			Text = "Found? " .. tostring(FoundIt) .. "\n Item to find: " .. ItemToFind; -- what the text says (ofc)
-			Icon = "rbxassetid://8677107889";
-			Duration = 5;
-			})
-	end
 	loadstring(game:HttpGet("https://raw.githubusercontent.com/LilDarkin/Some-Scripts/master/" .. game.PlaceId))()
 ]])
 	end
