@@ -52,6 +52,8 @@ getgenv().ChooseWeapon = ""
 getgenv().hpLeft = 0
 getgenv().HighDistance = 30
 getgenv().StopItNow = false
+getgenv().FoundIt = false
+getgenv().ItemToFind = ""
 
 local VirtualInputManager = game:GetService("VirtualInputManager")
 
@@ -62,6 +64,7 @@ plrName = plr.Name
 local ListOfMobs = {}
 local ListOfWeapons = {}
 local Spawns = { "DragonBalls" }
+local OrbsAndBalls = {}
 local add = false
 
 --TP
@@ -182,16 +185,24 @@ end
 
 -- Get Orb/Dragon Balls
 local function getTheOrb()
+	FoundIt = false
+
 	for i, v in pairs(game:GetService("Workspace").Resources.SpawnedOrbs:GetChildren()) do
 		if v:IsA("Tool") and v:FindFirstChild("Handle") then
 			Notify("Got something!", "You got " .. v.Name, 10)
 			game.Players.LocalPlayer.Character:SetPrimaryPartCFrame(v.Handle.CFrame)
+			if v.Name == ItemToFind then
+				FoundIt = true
+			end
 			wait(0.1)
 			game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game:GetService("Workspace").Resources.NPC.SetSpawn["North City"].CFrame
 				* CFrame.new(0, 30, 0)
 		elseif v:IsA("Model") and v:FindFirstChild("Part") then
 			Notify("Got something!", "You got " .. v.Name, 10)
 			game.Players.LocalPlayer.Character:SetPrimaryPartCFrame(v.Part.CFrame)
+			if v.Name == ItemToFind then
+				FoundIt = true
+			end
 			wait(0.1)
 			game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game:GetService("Workspace").Resources.NPC.SetSpawn["North City"].CFrame
 				* CFrame.new(0, 30, 0)
@@ -201,11 +212,52 @@ local function getTheOrb()
 		if v:IsA("Tool") and v:FindFirstChild("Handle") then
 			Notify("Got something!", "You got " .. v.Name, 10)
 			game.Players.LocalPlayer.Character:SetPrimaryPartCFrame(v.Handle.CFrame)
+			if v.Name == ItemToFind then
+				FoundIt = true
+			end
 			wait(0.1)
 			game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game:GetService("Workspace").Resources.NPC.SetSpawn["North City"].CFrame
 				* CFrame.new(0, 30, 0)
 		end
 	end
+	if FoundIt then
+		Notify("Yay!", "Found your " .. ItemToFind, 15)
+	end
+end
+
+--Get Available Orbs/Dragon Balls
+local function getOrbsAndBalls()
+	for i, v in pairs(game:GetService("ReplicatedStorage").Assets.Models.DragonBalls:GetChildren()) do
+		if v:IsA("Model") then
+			add = true
+			for index, value in ipairs(OrbsAndBalls) do
+				if v.Name == value then
+					add = false
+				end
+			end
+			if add == true then
+				table.insert(OrbsAndBalls, v.Name)
+			end
+		end
+	end
+
+	for i, v in pairs(game:GetService("ReplicatedStorage").Assets.Orbs:GetChildren()) do
+		if v:IsA("Tool") then
+			add = true
+			for index, value in ipairs(OrbsAndBalls) do
+				if v.Name == value then
+					add = false
+				end
+			end
+			if add == true then
+				table.insert(OrbsAndBalls, v.Name)
+			end
+		end
+	end
+
+	table.sort(OrbsAndBalls, function(a, b)
+		return a < b
+	end)
 end
 
 --Get Available Maps
@@ -269,6 +321,7 @@ local function getWeapons()
 	end)
 end
 
+getOrbsAndBalls()
 getMaps()
 getWeapons()
 getMobs()
@@ -293,7 +346,11 @@ end
 until rawr == true
 
 wait(3)
-    loadstring(game:HttpGet("https://raw.githubusercontent.com/LilDarkin/Some-Scripts/master/" .. game.PlaceId))()
+    if AutoFind then
+		getgenv().AutoFind = true
+		ItemToFind = ItemToFind
+	end
+	loadstring(game:HttpGet("https://raw.githubusercontent.com/LilDarkin/Some-Scripts/master/" .. game.PlaceId))()
 ]])
 	end
 end
@@ -545,6 +602,33 @@ misc:Button({
 	end,
 })
 
+if webhookcheck == "Synapse" then
+	misc:dropdown({
+		Name = "Choose item to find",
+		StartingText = "...",
+		Items = OrbsAndBalls,
+		Description = "List of Available DragonBalls/Orbs",
+		Callback = function(v)
+			ItemToFind = v
+		end,
+	})
+
+	misc:Button({
+		Name = "Auto Server-Hop (Exclusive only for Synapse)",
+		Description = "Self-explanatory | Will stop if found",
+		Callback = function()
+			AutoFind = true
+			getTheOrb()
+			wait(1)
+			if FoundIt == false then
+				Notify("Not found!", "Teleporting...", 10)
+				AutoExec()
+				Teleport()
+			end
+		end,
+	})
+end
+
 spawn(function()
 	while wait() do
 		if getOrb then
@@ -632,7 +716,6 @@ spawn(function()
 
 											-- AUTO SKILL
 											autoSkill()
-
 										else
 											game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.HumanoidRootPart.CFrame
 												* CFrame.new(0, DistanceHM, 0)
@@ -746,7 +829,6 @@ spawn(function()
 
 									-- AUTO SKILL
 									autoSkill()
-
 								end
 							end
 						end
