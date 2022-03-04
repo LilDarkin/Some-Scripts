@@ -53,6 +53,7 @@ getgenv().hpLeft = 0
 getgenv().HighDistance = 30
 getgenv().StopItNow = false
 getgenv().FindItPlease = false
+local TimeToFind
 
 local VirtualInputManager = game:GetService("VirtualInputManager")
 
@@ -332,7 +333,7 @@ local function AutoExec()
 			syn.queue_on_teleport([[
 
 getgenv().FoundIt = false
-getgenv().ItemToFind = ItemToFind
+getgenv().ItemToFind = TimeToFind
 game.StarterGui:SetCore("SendNotification", {
 	Title = "Testing",
 	Text = "Found? " .. tostring(FoundIt) .. "\n Item to find: " .. ItemToFind, -- what the text says (ofc)
@@ -385,7 +386,7 @@ until rawr == true
 wait(3)
 loadstring(game:HttpGet("https://raw.githubusercontent.com/LilDarkin/Some-Scripts/master/" .. game.PlaceId))()
 		]])
-		
+
 		end
 	end
 end
@@ -644,7 +645,7 @@ if webhookcheck == "Synapse" then
 		Items = OrbsAndBalls,
 		Description = "List of Available DragonBalls/Orbs",
 		Callback = function(v)
-			ItemToFind = v
+			TimeToFind = v
 		end,
 	})
 
