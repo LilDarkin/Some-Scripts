@@ -52,7 +52,6 @@ getgenv().ChooseWeapon = ""
 getgenv().hpLeft = 0
 getgenv().HighDistance = 30
 getgenv().StopItNow = false
-getgenv().FindItPlease = false
 local TimeToFind
 
 local VirtualInputManager = game:GetService("VirtualInputManager")
@@ -330,17 +329,11 @@ getTheOrb()
 local function AutoExec()
 	if webhookcheck == "Synapse" then
 		if FindItPlease then
-			syn.queue_on_teleport([[
+			syn.queue_on_teleport([[]
 
 getgenv().FoundIt = false
-getgenv().ItemToFind = TimeToFind
-game.StarterGui:SetCore("SendNotification", {
-	Title = "Testing",
-	Text = "Found? " .. tostring(FoundIt) .. "\n Item to find: " .. ItemToFind, -- what the text says (ofc)
-	Icon = "rbxassetid://8677107889",
-	Duration = 5,
-})
-
+getgenv().ItemToFind = "Bob Orb"
+getgenv().FindItPlease = true
 rawr = false
 repeat
 	wait()
@@ -358,10 +351,17 @@ repeat
 	end
 until rawr == true
 
+game.StarterGui:SetCore("SendNotification", {
+	Title = "Testing",
+	Text = "Found? " .. tostring(FoundIt) .. "\n Item to find: " .. ItemToFind, -- what the text says (ofc)
+	Icon = "rbxassetid://8677107889",
+	Duration = 5,
+})
+
 wait(3)
 loadstring(game:HttpGet("https://raw.githubusercontent.com/LilDarkin/Some-Scripts/master/" .. game.PlaceId))()
 
-]])
+]]])
 
 		else
 			syn.queue_on_teleport([[
