@@ -354,7 +354,7 @@ until rawr == true
 
 game.StarterGui:SetCore("SendNotification", {
 	Title = "Testing",
-	Text = "Found? " .. tostring(FoundIt) .. "\n Item to find: " .. ItemToFind, -- what the text says (ofc)
+	Text = "Found? " .. tostring(FoundIt) .. "\n Item to find: " .. tostring(ItemToFind), -- what the text says (ofc)
 	Icon = "rbxassetid://8677107889",
 	Duration = 5,
 })
