@@ -19,6 +19,8 @@ getgenv().haveVelo = false
 local Imput = game:GetService("UserInputService")
 local Plr = game.Players.LocalPlayer
 
+wait = task.wait
+
 function Notif(TitleMsg, Message)
     game.StarterGui:SetCore("SendNotification", {
         Title = TitleMsg,
@@ -101,6 +103,7 @@ manual:Button("Get all Spawned Items", function()
             else
                 positionPart = v[toolName].Handle.Position
                 To(v[toolName].Handle.Position)
+                wait(1)
             end
 
         end
@@ -353,10 +356,7 @@ end)
 local tgls = serv:Channel("Auto Farm")
 
 tgls:Label(
-    "- Try not to die while auto farming (If died the script might break so you need to re-execute or re-turn on")
-
-tgls:Label(
-    "- Click NO CLIP for better farming experience")
+    "- Script sometimes break if you dies (Re-on to fix)")
 
 tgls:Seperator()
 
@@ -369,6 +369,8 @@ tgls:Toggle("Level Farm", false, function(AFL)
     getgenv().changeNPC = 0
 
     if isOnAutoFarm == false then
+
+        clip()
         if game.Workspace:FindFirstChild(plrName):FindFirstChild('HumanoidRootPart') then
             for i, v in pairs(game:GetService("Workspace")[plrName].HumanoidRootPart:GetChildren()) do
                 if v:IsA('BodyVelocity') or v:IsA('BodyGyro') then
@@ -376,6 +378,8 @@ tgls:Toggle("Level Farm", false, function(AFL)
                 end
             end
         end
+    else
+        noClip()
     end
 
     spawn(function()
@@ -723,9 +727,7 @@ tgls:Toggle("Auto Prestige", false, function(APT)
     getgenv().isOnAPT = APT
 end)
 
-tgls:Seperator()
-
-tgls:Button("NO CLIP", function()
+function noClip()
     Clip = false
     wait(0.1)
     speaker = game.Players.LocalPlayer
@@ -739,15 +741,14 @@ tgls:Button("NO CLIP", function()
         end
     end
     Noclipping = game:GetService('RunService').Stepped:Connect(NoclipLoop)
-end)
+end
 
-tgls:Button("CLIP", function()
+function clip()
     if Noclipping then
         Noclipping:Disconnect()
     end
     Clip = true
-end)
-
+end
 spawn(function()
     while true do
         wait()

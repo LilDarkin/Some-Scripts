@@ -318,9 +318,11 @@ local function AutoExec()
 		syn.queue_on_teleport([[
 
 rawr = false
+
 repeat
 	wait()
 until game:IsLoaded()
+
 repeat
 	wait()
 	if game:GetService("Players").LocalPlayer:FindFirstChild("PlayerGui") then
