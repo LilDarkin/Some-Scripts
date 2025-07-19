@@ -68,28 +68,24 @@ local function equipThree()
 end
 
 local selectRoom = {
-    [1] = workspace:WaitForChild("Worlds"):WaitForChild("Hub"):WaitForChild("DungeonTemple"):WaitForChild("1")
-        :WaitForChild("RaidRooms"):WaitForChild("Room4"),
+    [1] = workspace.Worlds.Hub.DungeonTemple.1.RaidRooms.Room4,
     [2] = true
 }
 local selectMap = {}
 local selectDiff = {}
 local startRoom = {
-    [1] = workspace:WaitForChild("Worlds"):WaitForChild("Hub"):WaitForChild("DungeonTemple"):WaitForChild("1")
-        :WaitForChild("RaidRooms"):WaitForChild("Room4")
+    [1] = workspace.Worlds.Hub.DungeonTemple.1.RaidRooms.Room4,
 }
 
 local function startSelectedMap()
     selectMap = {
-        [1] = workspace:WaitForChild("Worlds"):WaitForChild("Hub"):WaitForChild("DungeonTemple"):WaitForChild("1")
-            :WaitForChild("RaidRooms"):WaitForChild("Room4"),
+        [1] = workspace.Worlds.Hub.DungeonTemple.1.RaidRooms.Room4,
         [2] = "TargetWorld",
         [3] = RaidMap,
     }
 
     selectDiff = {
-        [1] = workspace:WaitForChild("Worlds"):WaitForChild("Hub"):WaitForChild("DungeonTemple"):WaitForChild("1")
-            :WaitForChild("RaidRooms"):WaitForChild("Room4"),
+        [1] = workspace.Worlds.Hub.DungeonTemple.1.RaidRooms.Room4,
         [2] = "Difficulty",
         [3] = RaidDifficulty,
     }
