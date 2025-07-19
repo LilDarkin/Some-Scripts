@@ -1,5 +1,9 @@
 -- For Grimoire's Legacy (Auto Mine only)
 
+-- Anti AFK
+
+loadstring(game:HttpGet("https://raw.githubusercontent.com/hassanxzayn-lua/Anti-afk/main/antiafkbyhassanxzyn"))();
+
 -- Safe environment
 local player = game.Players.LocalPlayer
 local character = player.Character or player.CharacterAdded:Wait()
